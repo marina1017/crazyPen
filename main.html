@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <!-- iOS向け設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- jquery 導入 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css">
+    <!-- CSSを読み込む -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- manifest.jsonを呼び出しています -->
+    <link rel="manifest" href="./manifest.json">
+
+    <script>
+        // service workerが有効なら、service-worker.js を登録します
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').then(function() {
+                console.log('Service Worker Registered');
+            });
+        }
+    </script>
+    <title>Crazy Pen</title>
+</head>
+
+
+<body>
+    <div id="app" v-cloak>
+        <div v-show="!show">
+            <div>
+                <div class="toolTitle">はじまる時間</div>
+                <div class="inline-block_test">
+                    <input id="scrollDefaultExample" type="text" class="time ui-timepicker-input" autocomplete="off" style="color:#656565">
+                </div>
+                <div class="toolTitle">おわる時間</div>
+                <div class="inline-block_test">
+                    <input id="durationExample" type="text" class="time ui-timepicker-input" autocomplete="off" style="color:#656565">
+                </div>
+            </div>
+            <div>
+                <div class="toolTitle">やること</div>
+                <input type="text" class="inputBox" style="color:#656565">
+            </div>
+            <div class="pick-button">
+                <a @click="show = !show; threeMin(); startTimer()" v-on:mouseover="rotate_left" class="ok-button">OK</a>
+            </div>
+        </div>
+
+        <transition appear>
+            <div v-show="show">
+                <div v-bind:class="{'timer': isPast === false, 'passtimer': isPast===true}">
+                    <div v-text="timerTitle" v-bind:class="timerTitleClass"></div>
+                    <span id="minutes ">{{ minutes }}</span>
+                    <span id="middle ">:</span>
+                    <span id="seconds ">{{ seconds }}</span>
+                </div>
+                <div id="buttons ">
+                    <a @click="stopTimer" v-if="timer " class="ok-button ">はじめたよ！</a>
+                </div>
+                <a @click="show=! show; pushBackButton() " class="back-button ">BACK</a>
+            </div>
+        </transition>
+    </div>
+    <!-- 必要なライブラリを読み込む -->
+    <script src="https://cdn.jsdelivr.net/npm/vue "></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script>
+    <script src="js/index.js "></script>
+</body>
+
+</html>
