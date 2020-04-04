@@ -12,6 +12,36 @@ const vm = new Vue({
         isPast: false,
         timerTitle: '予定開始時刻まであと...',
         timerTitleClass: 'timerTitle',
+        sound1: new Howl({
+            src: ['sound/1.mp3'],
+            autoplay: false,
+            loop: false,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        }),
+        isPlaySound1: false,
+        sound2: new Howl({
+            src: ['sound/2.wav'],
+            autoplay: false,
+            loop: false,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        }),
+        isPlaySound2: false,
+        sound3: new Howl({
+            src: ['sound/3.wav'],
+            autoplay: false,
+            loop: true,
+            volume: 1,
+            onend: function() {
+                console.log('Finished!');
+            }
+        }),
+        isPlaySound3: false
     },
     methods: {
         rotate_left: function() {
@@ -23,8 +53,7 @@ const vm = new Vue({
             this.isRight = true;
         },
         threeMin: function() {
-            this.pickTime = 1000;
-            // this.pickTime = 3 * 60 * 1000;
+            this.pickTime = 3000;
             this.totalTime = this.pickTime;
             this.resolution = 100;
         },
@@ -36,6 +65,12 @@ const vm = new Vue({
         startTimer: function() {
             this.timer = setInterval(() => this.countdown(), this.resolution);
             this.resetButton = true;
+            console.log("てすと")
+            console.log(this.isPlaySound1)
+            if (this.isPlaySound1 === false) {
+                this.sound1.play();
+                this.isPlaySound1 = true
+            }
         },
         stopTimer: function() {
             clearInterval(this.timer);
@@ -48,7 +83,11 @@ const vm = new Vue({
             this.resetButton = true;
             this.totalTime = this.pickTime;
             this.isPast = false;
-            this.timerTitle = "予定開始時刻まであと..."
+            this.timerTitle = "予定開始時刻まであと...";
+            this.isPlaySound1 = false;
+            this.isPlaySound2 = false;
+            this.isPlaySound3 = false;
+            this.sound3.stop();
         },
         resetTimer: function() {
             // this.totalTime = this.pickTime;
@@ -63,16 +102,31 @@ const vm = new Vue({
             // 指定時間内に始められた時 
             if (this.totalTime > 1 && this.timer != null && this.isPast == false) {
                 this.totalTime = this.totalTime - this.resolution;
-            } else if (this.totalTime > -10000 && this.totalTime <= 1) {
+            } else if (this.totalTime > -5000 && this.totalTime <= 1) {
                 this.isPast = true;
                 // 指定時間内を1分以上過ぎた時
                 this.totalTime = this.totalTime - this.resolution;
                 this.timerTitle = "予定時間が過ぎています...."
-                    // 音をならす
+
+            } else if (this.totalTime > -10000 && this.totalTime <= -5000) {
+                this.isPast = true;
+                // 指定時間内を1分以上過ぎた時
+                this.totalTime = this.totalTime - this.resolution;
+                this.timerTitle = "おーい..おーい..."
+                if (this.isPlaySound2 === false) {
+                    this.sound2.play();
+                    this.isPlaySound2 = true
+                }
             } else {
                 // this.totalTime = 0;
                 this.resetTimer();
-                swal("Complete!!", "", "success");
+                swal("発狂中!!", "", "warning", {
+                    className: "red-bg",
+                });
+                if (this.isPlaySound3 === false) {
+                    this.sound3.play();
+                    this.isPlaySound3 = true
+                }
             }
         }
     },
