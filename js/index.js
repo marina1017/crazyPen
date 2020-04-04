@@ -14,6 +14,7 @@ const vm = new Vue({
         timerTitleClass: 'timerTitle',
         sound1: new Howl({
             src: ['sound/1.mp3'],
+            html5: true,
             onplayerror: function() {
                 sound.once('unlock', function() {
                     this.sound1.play();
@@ -29,6 +30,7 @@ const vm = new Vue({
         isPlaySound1: false,
         sound2: new Howl({
             src: ['sound/2.wav'],
+            html5: true,
             onplayerror: function() {
                 sound.once('unlock', function() {
                     this.sound2.play();
@@ -44,6 +46,7 @@ const vm = new Vue({
         isPlaySound2: false,
         sound3: new Howl({
             src: ['sound/3.wav'],
+            html5: true,
             onplayerror: function() {
                 sound.once('unlock', function() {
                     this.sound3.play();
