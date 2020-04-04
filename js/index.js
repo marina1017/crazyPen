@@ -14,6 +14,11 @@ const vm = new Vue({
         timerTitleClass: 'timerTitle',
         sound1: new Howl({
             src: ['sound/1.mp3'],
+            onplayerror: function() {
+                sound.once('unlock', function() {
+                    this.sound1.play();
+                });
+            },
             autoplay: false,
             loop: false,
             volume: 0.5,
@@ -24,6 +29,11 @@ const vm = new Vue({
         isPlaySound1: false,
         sound2: new Howl({
             src: ['sound/2.wav'],
+            onplayerror: function() {
+                sound.once('unlock', function() {
+                    this.sound2.play();
+                });
+            },
             autoplay: false,
             loop: false,
             volume: 0.5,
@@ -34,6 +44,11 @@ const vm = new Vue({
         isPlaySound2: false,
         sound3: new Howl({
             src: ['sound/3.wav'],
+            onplayerror: function() {
+                sound.once('unlock', function() {
+                    this.sound3.play();
+                });
+            },
             autoplay: false,
             loop: true,
             volume: 1,

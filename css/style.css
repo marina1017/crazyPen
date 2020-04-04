@@ -13,8 +13,8 @@ body {
     text-align: center;
     background: linear-gradient(-45deg, rgba(246, 255, 0, .8), rgba(255, 0, 161, .8)), url(../img/background.png);
     margin-top: 10%;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 
 .swal-modal.red-bg {
@@ -148,7 +148,7 @@ body {
     color: #1b1b1b;
     background: #fff;
     border: 2px solid #1b1b1b;
-    font-size: 20px;
+    font-size: 50px;
     width: 160px;
     margin-top: 30px;
     padding: 10px;
@@ -166,7 +166,7 @@ body {
     color: #1b1b1b;
     background: #fff;
     border: 2px solid #1b1b1b;
-    font-size: 20px;
+    font-size: 50px;
     width: 160px;
     margin-top: 30px;
     padding: 10px;
