@@ -37,6 +37,7 @@ body {
 .time {
     font-size: 70px;
     margin-bottom: 5%;
+    text-align: center;
 }
 
 .inputBox {
